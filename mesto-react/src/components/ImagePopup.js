@@ -1,3 +1,5 @@
+import React from "react";
+
 function ImagePopup() {
    return (<div className="popup popup_for_img">
     <div className="popup__container popup__container_for_img">
