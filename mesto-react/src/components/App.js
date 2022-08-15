@@ -9,8 +9,6 @@ import '../index.css';
 
 
 function App() {
-    // let isEditProfilePopupOpen = false;
-
 
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const handleEditProfileClick = () => {
@@ -27,19 +25,33 @@ function App() {
         setIsEditAvatarPopupOpen(true);
     }
 
+    const [selectedCard, setSelectedCard] = React.useState({});
+    const handleCardClick = (card) => {
+        setSelectedCard(card);
+    }
+
+    const [isDeletePopupOpen, setIsDeletePopupOpen] = React.useState(false);
+    const handleDeletePopupClick = () => {
+        setIsDeletePopupOpen(true);
+    }
+
     const closeAllPopups = () => {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setIsEditAvatarPopupOpen(false);
+        setIsDeletePopupOpen(false);
+        setSelectedCard({});
     }
-    
+
     return (
         <div className="page">
 
             <Header />
             <Main onEditProfile={handleEditProfileClick}
                 onAddPlace={handleAddPlaceClick}
-                onEditAvatar={handleEditAvatarClick} />
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                onDeleteClick={handleDeletePopupClick} />
             <Footer />
 
             <PopupWithForm name="edit" title="Редактировать профиль" button="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
@@ -68,9 +80,9 @@ function App() {
                 </label>
             </PopupWithForm>
 
-            <PopupWithForm name="delete" title="Вы уверены?" button="Да" onClose={closeAllPopups}/>
+            <PopupWithForm name="delete" title="Вы уверены?" button="Да" onClose={closeAllPopups} isOpen={isDeletePopupOpen} popupDelete={true} />
 
-            <PopupWithForm name="avatar" title="Обновить аватар" button="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+            <PopupWithForm name="avatar" title="Обновить аватар" button="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} popupAvatar={true}>
                 <label className="popup__label">
                     <input type="url" className="popup__item popup__item_input_link-avatar" name="avatar"
                         placeholder="Ссылка на аватар" required id="avatar" />
@@ -78,31 +90,12 @@ function App() {
                 </label>
             </PopupWithForm>
 
-            <ImagePopup onClose={closeAllPopups} />
+            <ImagePopup onClose={closeAllPopups} card={selectedCard} />
 
-            
+
 
         </div>
     );
 }
-
-// let isEditProfilePopupOpen = false;
-// let isAddPlacePopupOpen = false;
-// let isEditAvatarPopupOpen = false;
-
-// function handleEditProfileClick() {
-//     isEditProfilePopupOpen = true;
-//     // document.querySelector('.popup_for_edit').classList.add('popup_opened');
-// }
-
-// function handleAddPlaceClick() {
-//     isAddPlacePopupOpen = true;
-//     document.querySelector('.popup_for_add').classList.add('popup_opened');
-// }
-
-// function handleEditAvatarClick() {
-//     isEditAvatarPopupOpen = true;
-//     // document.querySelector('.popup_for_avatar').classList.add('popup_opened');
-// }
 
 export default App;
