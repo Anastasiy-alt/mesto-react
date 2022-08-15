@@ -1,1 +1,1 @@
-# mesto-react
+# Место теперь на React
