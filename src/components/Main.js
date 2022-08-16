@@ -1,15 +1,15 @@
-import React from "react";
+import {useEffect, useState, Fragment} from 'react';
 import Card from "./Card";
 import api from "../utils/Api"
 
-function Main(props) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteClick}) {
 
-    const [userName, setUserName] = React.useState("");
-    const [userDescription, setUserDescription] = React.useState("");
-    const [userAvatar, setUserAvatar] = React.useState("");
-    const [cards, setCards] = React.useState([]);
+    const [userName, setUserName] = useState("");
+    const [userDescription, setUserDescription] = useState("");
+    const [userAvatar, setUserAvatar] = useState("");
+    const [cards, setCards] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         api.getUserInfo()
             .then((userData) => {
                 setUserName(userData.name);
@@ -21,7 +21,7 @@ function Main(props) {
             })
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         api.getInitialCards()
             .then((cardData) => {
                 setCards(cardData);
@@ -33,28 +33,28 @@ function Main(props) {
 
 
     return (
-        <React.Fragment>
+        <Fragment>
             <section className="profile">
                 <div className="profile__avatar-cover">
-                    <button className="profile__cover-hover" type="button" onClick={props.onEditAvatar}></button>
+                    <button className="profile__cover-hover" type="button" onClick={onEditAvatar}></button>
                     <img alt="Фото профиля." src={userAvatar} className="profile__avatar" />
                 </div>
                 <div className="profile__info-block">
                     <div className="profile__title">
                         <h1 className="profile__name">{userName}</h1>
-                        <button className="profile__edit-button button" type="button" onClick={props.onEditProfile}></button>
+                        <button className="profile__edit-button button" type="button" onClick={onEditProfile}></button>
                     </div>
                     <p className="profile__info">{userDescription}</p>
                 </div>
-                <button className="profile__add-button button" type="button" onClick={props.onAddPlace}></button>
+                <button className="profile__add-button button" type="button" onClick={onAddPlace}></button>
             </section>
             <section className="elements">
                 {cards.map((card) => (
-                    <Card card={card} key={card._id} openCardClick={props.onCardClick} deleteCardClick={props.onDeleteClick} />
+                    <Card card={card} key={card._id} onCardClick={onCardClick} deleteCardClick={onDeleteClick} />
                 ))}
 
             </section>
-        </React.Fragment>
+        </Fragment>
     )
 
 };
