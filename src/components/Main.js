@@ -1,25 +1,27 @@
-import {useEffect, useState, Fragment} from 'react';
+import {useEffect, useState, Fragment, useContext} from 'react';
 import Card from "./Card";
 import api from "../utils/Api"
+import { CurrentUserContext } from '../context/CurrentUserContext';
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteClick}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteClick, onUserInfo}) {
 
-    const [userName, setUserName] = useState("");
-    const [userDescription, setUserDescription] = useState("");
+    // const [userName, setUserName] = useState("");
+    // const [userDescription, setUserDescription] = useState("");
     const [userAvatar, setUserAvatar] = useState("");
     const [cards, setCards] = useState([]);
 
-    useEffect(() => {
-        api.getUserInfo()
-            .then((userData) => {
-                setUserName(userData.name);
-                setUserDescription(userData.about);
-                setUserAvatar(userData.avatar);
-            })
-            .catch((error) => {
-                console.log(`Ошибка: ${error}`);
-            })
-    });
+    const currentUser = useContext(CurrentUserContext);
+    // useEffect(() => {
+    //     api.getUserInfo()
+    //         .then((userData) => {
+    //             setUserName(userData.name);
+    //             setUserDescription(userData.about);
+    //             setUserAvatar(userData.avatar);
+    //         })
+    //         .catch((error) => {
+    //             console.log(`Ошибка: ${error}`);
+    //         })
+    // });
 
     useEffect(() => {
         api.getInitialCards()
@@ -37,14 +39,14 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCli
             <section className="profile">
                 <div className="profile__avatar-cover">
                     <button className="profile__cover-hover" type="button" onClick={onEditAvatar}></button>
-                    <img alt="Фото профиля." src={userAvatar} className="profile__avatar" />
+                    <img alt="Фото профиля." src={currentUser.avatar} className="profile__avatar" />
                 </div>
                 <div className="profile__info-block">
                     <div className="profile__title">
-                        <h1 className="profile__name">{userName}</h1>
+                        <h1 className="profile__name">{currentUser.name}</h1>
                         <button className="profile__edit-button button" type="button" onClick={onEditProfile}></button>
                     </div>
-                    <p className="profile__info">{userDescription}</p>
+                    <p className="profile__info">{currentUser.about}</p>
                 </div>
                 <button className="profile__add-button button" type="button" onClick={onAddPlace}></button>
             </section>
