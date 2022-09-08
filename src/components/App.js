@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import Header from './Header';
 import Footer from './Footer';
@@ -27,6 +27,9 @@ function App() {
             })
     })
 
+    
+
+    const [cards, setCards] = useState([]);
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
