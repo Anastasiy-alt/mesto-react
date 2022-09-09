@@ -46,7 +46,7 @@ class Api {
             method: 'PATCH',
             body: JSON.stringify({
                 name: userData.name,
-                about: userData.info
+                about: userData.about
             })
         })
             .then(res => this._check(res))

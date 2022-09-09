@@ -36,7 +36,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCl
     function handleCardDelete(cardId) {
         api.deleteCard(cardId)
             .then(() => {
-                setCards((state) => state.filter((c) => c._id !== c._Id));
+                setCards((state) => state.filter((c) => c._id !== c._id));
             })
             .catch((error) => {
                 console.log(`Ошибка: ${error}`);
