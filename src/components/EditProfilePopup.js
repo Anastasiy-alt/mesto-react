@@ -3,9 +3,9 @@ import { CurrentUserContext } from '../context/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
 
 function EditProfilePopup({isOpen, onClose, onUpdateUser, button}) {
-
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+const currentUser = useContext(CurrentUserContext);
+    const [name, setName] = useState(currentUser.name);
+    const [description, setDescription] = useState(currentUser.description);
 
     function handleNameChange(name) {
         setName(name.target.value);
@@ -15,7 +15,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, button}) {
     }
 
     // Подписка на контекст
-    const currentUser = useContext(CurrentUserContext);
+    
 
     // После загрузки текущего пользователя из API
     // его данные будут использованы в управляемых компонентах.

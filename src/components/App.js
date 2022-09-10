@@ -7,6 +7,7 @@ import api from '../utils/Api';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup'
+import EditAvatarPopup from './EditAvatarPopup'
 import '../index.css';
 
 
@@ -20,8 +21,8 @@ function App() {
 
     useEffect(() => {
         api.getUserInfo()
-            .then((userData) => {
-                setCurrentUser(userData);
+            .then((data) => {
+                setCurrentUser(data);
             })
             .catch((error) => {
                 console.log(`Ошибка: ${error}`);
@@ -30,6 +31,17 @@ function App() {
 
     const handleUpdateUser = (userInfo) => {
         api.setUserInfo(userInfo)
+          .then((data) => {
+            setCurrentUser(data);
+            closeAllPopups();
+          })
+          .catch((error) => {
+            console.log(`Ошибка: ${error}`);
+          })
+      };
+
+      const handleUpdateAvatar = (avatar) => {
+        api.setUserAvatar(avatar)
           .then((data) => {
             setCurrentUser(data);
             closeAllPopups();
@@ -55,7 +67,7 @@ function App() {
         setIsAddPlacePopupOpen(true);
     }
     const handleEditAvatarClick = () => {
-        setIsEditAvatarPopupOpen(true);
+        setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     }
     const handleCardClick = (card) => {
         setSelectedCard(card);
@@ -105,15 +117,14 @@ function App() {
 
                 <PopupWithForm name="delete" title="Вы уверены?" button="Да" onClose={closeAllPopups} isOpen={isDeletePopupOpen} popupDelete={true} />
 
-                <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} popupAvatar={true}>
-                    <label className="popup__label">
-                        <input type="url" className="popup__item popup__item_input_link-avatar" name="avatar"
-                            placeholder="Ссылка на аватар" required id="avatar" />
-                        <span className="popup__input-error avatar-error"></span>
-                    </label>
-                </PopupWithForm>
+                <EditAvatarPopup 
+                isOpen={isEditAvatarPopupOpen}
+                onClose={closeAllPopups}
+                onUpdateAvatar={handleUpdateAvatar} />
 
-                <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+                <ImagePopup
+                onClose={closeAllPopups}
+                card={selectedCard} />
 
             </div>
         </CurrentUserContext.Provider>
