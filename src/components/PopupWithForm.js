@@ -1,5 +1,5 @@
 function PopupWithForm({name, title, button, isOpen, onClose, popupDelete, popupAvatar, children, onSubmit}) {
-
+    
     return (
         <div className={`popup popup_for_${name} ${isOpen && "popup_opened"}`}>
             <div className={`popup__container ${popupDelete && "popup__container_for_delete"} ${popupAvatar && "popup__container_for_avatar"}`}>
