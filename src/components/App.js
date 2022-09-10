@@ -20,7 +20,6 @@ function App() {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
-    const [deleteCard, setDeleteCard] = React.useState('');
 
     useEffect(() => {
         api.getInitialCards()
@@ -39,7 +38,7 @@ function App() {
             .catch((error) => {
                 console.log(`Ошибка: ${error}`);
             })
-    })
+    }, [])
 
     const handleUpdateUser = (userInfo) => {
         api.setUserInfo(userInfo)
@@ -161,6 +160,8 @@ function App() {
                 <ImagePopup
                     onClose={closeAllPopups}
                     card={selectedCard} />
+
+                
 
             </div>
         </CurrentUserContext.Provider>
