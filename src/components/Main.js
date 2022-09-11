@@ -30,7 +30,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCl
                         // trash
                         deleteCardClick={onDeleteClick} 
                         onCardLike={onCardLike}
-
                         onCardDelete={onDeleteClick} />
                 ))}
 
