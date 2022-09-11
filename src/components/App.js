@@ -8,6 +8,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup'
 import EditAvatarPopup from './EditAvatarPopup'
+import DeleteCardPopup from './DeleteCardPopup';
 import AddPlacePopup from './AddPlacePopup'
 import '../index.css';
 
@@ -20,6 +21,13 @@ function App() {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+
+    const [selectDelete, setSelectDelete] = useState(false);
+    const [removedCardId, setRemovedCardId] = useState('');
+    const handleRemoveClick = (cardId) => {
+        setSelectDelete(!selectDelete);
+        setRemovedCardId(cardId);
+      };
 
     useEffect(() => {
         api.getInitialCards()
@@ -127,11 +135,11 @@ function App() {
                     onAddPlace={handleAddPlaceClick}
                     onEditAvatar={handleEditAvatarClick}
                     onCardClick={handleCardClick}
-                    onDeleteClick={handleDeletePopupClick}
+                    onDeleteClick={handleRemoveClick}
                     onUserInfo={handleUserInfo}
                     cards={cards}
                     onCardLike={handleCardLike}
-                    onCardDelete={handleCardDelete} />
+                    cardId={removedCardId} />
                 <Footer />
 
                 <EditProfilePopup
@@ -144,12 +152,13 @@ function App() {
                     onClose={closeAllPopups}
                     onAddCard={handleAddCard} />
 
-                <PopupWithForm
+                <DeleteCardPopup
                     name="delete"
                     title="Вы уверены?"
                     button="Да"
                     onClose={closeAllPopups}
                     isOpen={isDeletePopupOpen}
+                    cardId={removedCardId}
                     popupDelete={true} />
 
                 <EditAvatarPopup

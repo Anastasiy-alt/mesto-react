@@ -2,7 +2,7 @@ import { Fragment, useContext } from 'react';
 import Card from "./Card";
 import { CurrentUserContext } from '../context/CurrentUserContext';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteClick, cards, onCardDelete, onCardLike }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteClick, cards, onCardLike }) {
 
     const currentUser = useContext(CurrentUserContext);
 
@@ -27,9 +27,11 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCl
                     <Card card={card}
                         key={card._id}
                         onCardClick={onCardClick}
-                        deleteCardClick={onDeleteClick}
+                        // trash
+                        deleteCardClick={onDeleteClick} 
                         onCardLike={onCardLike}
-                        onCardDelete={onCardDelete} />
+
+                        onCardDelete={onDeleteClick} />
                 ))}
 
             </section>
