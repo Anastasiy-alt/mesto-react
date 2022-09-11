@@ -1,9 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-
-function ImagePopup({onClose, card}) {
-
-    
-
+function ImagePopup({ onClose, card }) {
     return (
         <div className={`popup popup_for_img  ${card._id && "popup_opened"}`}>
             <div className="popup__container popup__container_for_img">

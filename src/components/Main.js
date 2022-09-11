@@ -27,16 +27,12 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCl
                     <Card card={card}
                         key={card._id}
                         onCardClick={onCardClick}
-                        // trash
-                        deleteCardClick={onDeleteClick} 
                         onCardLike={onCardLike}
                         onCardDelete={onDeleteClick} />
                 ))}
-
             </section>
         </Fragment>
     )
-
 };
 
 export default Main;

@@ -1,10 +1,10 @@
 import PopupWithForm from './PopupWithForm';
 import React from 'react';
 
-function DeleteCardPopup({ onClose, isOpen, onSubmit, popupDelete, name, title, button, cardId }) {
+function DeleteCardPopup({ onClose, isOpen, popupDelete, name, title, button, cardId, onCardDelete }) {
 
     const handleDeleteClick = () => {
-        onSubmit(cardId);
+        onCardDelete(cardId);
     };
 
     function handleSubmit(e) {

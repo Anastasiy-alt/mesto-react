@@ -8,12 +8,12 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, button }) {
     function handleSubmit(e) {
         e.preventDefault();
         onUpdateAvatar({
-          avatar: avatarRef.current.value,
+            avatar: avatarRef.current.value,
         });
         onClose();
-      }
+    }
 
-      useEffect(() => {
+    useEffect(() => {
         avatarRef.current.value = '';
     }, [isOpen]);
 
